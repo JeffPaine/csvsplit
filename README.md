@@ -7,6 +7,11 @@ Split a .csv file into multiple files with a given number of records per file.
 csvsplit -r records -i input [-o path]
 ```
 
+## Install
+```bash
+$ go get github.com/JeffPaine/csvsplit
+```
+
 ## Arguments
 * `-r`: Number of records per file
 * `-i`: Filename of the input file to split
