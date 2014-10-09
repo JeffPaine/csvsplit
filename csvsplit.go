@@ -1,4 +1,4 @@
-// csvsplit: Split up a .csv file into multiple files.
+// csvsplit: Split a .csv file into multiple files.
 
 package main
 
