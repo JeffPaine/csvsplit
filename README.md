@@ -1,6 +1,6 @@
 # csvsplit
 
-Split a .csv file into multiple files with a given number of records per file.
+Split a .csv file into multiple files.
 
 ## Install
 ```bash
@@ -10,7 +10,7 @@ $ go get github.com/JeffPaine/csvsplit
 ## Usage
 ```bash
 # Basic usage
-$ csvsplit -r <number of records> -i <input file> [-o path]
+$ csvsplit -r <number of records> -i <input file> [-o <path>]
 
 # Split file.csv into files with 300 records a piece
 $ csvplit -r 300 -i file.csv
