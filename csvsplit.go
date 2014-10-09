@@ -47,7 +47,6 @@ func main() {
 
 	reader := csv.NewReader(csvFile)
 	recordsToWrite := make([][]string, 0)
-	recordCount := 0
 	fileCount := 1
 	for {
 		record, err := reader.Read()
@@ -58,10 +57,8 @@ func main() {
 		}
 
 		recordsToWrite = append(recordsToWrite, record)
-		recordCount += 1
-		if recordCount == *records {
+		if len(recordsToWrite) == *records {
 			saveCSVFile(recordsToWrite, fileCount)
-			recordCount = 0
 			recordsToWrite = make([][]string, 0)
 			fileCount += 1
 		}
