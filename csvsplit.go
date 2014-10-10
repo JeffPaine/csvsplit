@@ -11,7 +11,7 @@ import (
 	"os"
 )
 
-var records = flag.Int("r", 1000, "The number of records per file")
+var records = flag.Int("r", 0, "The number of records per file")
 var input = flag.String("i", "", "Filename of the input file to split")
 var output = flag.String("o", "", "filename / path of the file output (optional)")
 
