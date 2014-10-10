@@ -19,7 +19,7 @@ func main() {
 	flag.Parse()
 	if *input == "" || *records < 1 {
 		flag.Usage()
-		log.Fatal()
+		os.Exit(1)
 	}
 
 	csvFile, err := os.Open(*input)
