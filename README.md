@@ -1,6 +1,6 @@
 # csvsplit
 
-Split a .csv file into multiple files.
+Split a .csv into multiple files.
 
 ## Install
 ```bash
