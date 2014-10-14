@@ -59,18 +59,17 @@ func main() {
 
 func saveCSVFile(h [][]string, r [][]string, fileCount int) {
 	fileName := fmt.Sprintf("%v%03d%v", *output, fileCount, ".csv")
-	if _, err := os.Stat(fileName); os.IsNotExist(err) {
-		f, err := os.Create(fileName)
-		if err != nil {
-			log.Fatal(err)
-		}
-		defer f.Close()
-		writer := csv.NewWriter(f)
-		if len(h) > 0 {
-			writer.WriteAll(h)
-		}
-		writer.WriteAll(r)
-	} else {
+	if _, err := os.Stat(fileName); err == nil {
 		log.Fatal("File exists: ", fileName)
 	}
+	f, err := os.Create(fileName)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer f.Close()
+	writer := csv.NewWriter(f)
+	if len(h) > 0 {
+		writer.WriteAll(h)
+	}
+	writer.WriteAll(r)
 }
