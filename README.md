@@ -10,20 +10,20 @@ $ go get github.com/JeffPaine/csvsplit
 ## Usage
 ```bash
 # Basic usage
-$ csvsplit -r <number of records> -i <input file> [-o <path>]
+$ csvsplit -records <number of records> -input <input file> [-output <path>]
 
 # Split file.csv into files with 300 records a piece
-$ csvplit -r 300 -i file.csv
+$ csvplit -records 300 -input file.csv
 
 # Split file.csv into files with 37 records a piece into the subfolder 'stuff'
-$ csvplit -r 37 -i file.csv -o stuff/
+$ csvplit -records 37 -input file.csv -output stuff/
 
 # Split file.csv into files with 37 records a piece and two header lines
-$ csvplit -r 37 -i file.csv -h 2
+$ csvplit -records 37 -input file.csv -headers 2
 ```
 
 ## Arguments
-* `-r`: Number of records per file
-* `-i`: Filename of the input file to split
-* `-o`: filename / path of the file output (optional)
-* `-h`: Number of header lines in the input file
+* `-records`: Number of records per file
+* `-input`: Filename of the input file to split
+* `-output`: filename / path of the file output (optional)
+* `-headers`: Number of header lines in the input file

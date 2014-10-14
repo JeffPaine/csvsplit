@@ -10,10 +10,10 @@ import (
 	"os"
 )
 
-var records = flag.Int("r", 0, "The number of records per file")
-var input = flag.String("i", "", "Filename of the input file to split")
-var output = flag.String("o", "", "filename / path of the file output (optional)")
-var headerLines = flag.Int("h", 1, "Number of header lines in the input file (will be repeated in each output file")
+var records = flag.Int("records", 0, "The number of records per file")
+var input = flag.String("input", "", "Filename of the input file to split")
+var output = flag.String("output", "", "filename / path of the file output (optional)")
+var headerLines = flag.Int("headers", 1, "Number of header lines in the input file (will be repeated in each output file")
 
 func main() {
 	flag.Parse()
