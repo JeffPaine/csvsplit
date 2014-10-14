@@ -47,17 +47,17 @@ func main() {
 
 		recordsToWrite = append(recordsToWrite, record)
 		if len(recordsToWrite) == *records-*headerLines {
-			saveCSVFile(recordsToWrite, headers, fileCount)
+			saveCSVFile(headers, recordsToWrite, fileCount)
 			recordsToWrite = make([][]string, 0)
 			fileCount += 1
 		}
 	}
 	if len(recordsToWrite) > 0 {
-		saveCSVFile(recordsToWrite, headers, fileCount)
+		saveCSVFile(headers, recordsToWrite, fileCount)
 	}
 }
 
-func saveCSVFile(r [][]string, h [][]string, fileCount int) {
+func saveCSVFile(h [][]string, r [][]string, fileCount int) {
 	fileName := fmt.Sprintf("%v%03d%v", *output, fileCount, ".csv")
 	if _, err := os.Stat(fileName); os.IsNotExist(err) {
 		f, err := os.Create(fileName)
