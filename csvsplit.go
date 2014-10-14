@@ -11,29 +11,29 @@ import (
 )
 
 var (
-	records = flag.Int("records", 0, "The number of records per file")
-	input = flag.String("input", "", "Filename of the input file to split")
-	output = flag.String("output", "", "filename / path of the file output (optional)")
-	headerLines = flag.Int("headers", 1, "Number of header lines in the input file (will be repeated in each output file")
+	flagRecords = flag.Int("records", 0, "The number of records per file")
+	flagInput = flag.String("input", "", "Filename of the input file to split")
+	flagOutput = flag.String("output", "", "filename / path of the file output (optional)")
+	flagHeaders = flag.Int("headers", 1, "Number of header lines in the input file (will be repeated in each output file")
 )
 
 func main() {
 	flag.Parse()
-	if *input == "" || *records < 1 || *headerLines < 0 {
+	if *flagInput == "" || *flagRecords < 1 || *flagHeaders < 0 {
 		flag.Usage()
 		os.Exit(1)
 	}
 
-	csvFile, err := os.Open(*input)
+	csvFile, err := os.Open(*flagInput)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer csvFile.Close()
 
 	reader := csv.NewReader(csvFile)
-	recordsToWrite := make([][]string, 0)
-	fileCount := 1
 	headers := make([][]string, 0)
+	records := make([][]string, 0)
+	fileCount := 1
 	for {
 		record, err := reader.Read()
 		if err == io.EOF {
@@ -42,25 +42,25 @@ func main() {
 			log.Fatal(err)
 		}
 
-		if len(headers) < *headerLines {
+		if len(headers) < *flagHeaders {
 			headers = append(headers, record)
 			continue
 		}
 
-		recordsToWrite = append(recordsToWrite, record)
-		if len(recordsToWrite) == *records-*headerLines {
-			saveCSVFile(headers, recordsToWrite, fileCount)
-			recordsToWrite = make([][]string, 0)
+		records = append(records, record)
+		if len(records) == *flagRecords-*flagHeaders {
+			saveCSVFile(headers, records, fileCount)
+			records = make([][]string, 0)
 			fileCount += 1
 		}
 	}
-	if len(recordsToWrite) > 0 {
-		saveCSVFile(headers, recordsToWrite, fileCount)
+	if len(records) > 0 {
+		saveCSVFile(headers, records, fileCount)
 	}
 }
 
 func saveCSVFile(h [][]string, r [][]string, fileCount int) {
-	fileName := fmt.Sprintf("%v%03d%v", *output, fileCount, ".csv")
+	fileName := fmt.Sprintf("%v%03d%v", *flagOutput, fileCount, ".csv")
 	if _, err := os.Stat(fileName); err == nil {
 		log.Fatal("File exists: ", fileName)
 	}
