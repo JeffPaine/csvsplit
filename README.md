@@ -20,6 +20,9 @@ $ csvplit -records 37 -input file.csv -output stuff/
 
 # Split file.csv into files with 40 records a piece and two header lines
 $ csvplit -records 40 -input file.csv -headers 2
+
+# Accept csv data from stdin
+$ cat file.csv | csvsplit -records 20
 ```
 
 ## Arguments
