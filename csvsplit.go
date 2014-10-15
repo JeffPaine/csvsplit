@@ -12,25 +12,31 @@ import (
 
 var (
 	flagRecords = flag.Int("records", 0, "The number of records per file")
-	flagInput = flag.String("input", "", "Filename of the input file to split")
+	flagInput = flag.String("input", "", "Filename of the input file to split (if blank, uses stdin)")
 	flagOutput = flag.String("output", "", "filename / path of the file output (optional)")
 	flagHeaders = flag.Int("headers", 0, "Number of header lines in the input file (will be repeated in each output file")
 )
 
 func main() {
 	flag.Parse()
-	if *flagInput == "" || *flagRecords < 1 || *flagHeaders < 0 || *flagHeaders >= *flagRecords {
+	if *flagRecords < 1 || *flagHeaders < 0 || *flagHeaders >= *flagRecords {
 		flag.Usage()
 		os.Exit(1)
 	}
 
-	inputFile, err := os.Open(*flagInput)
-	if err != nil {
-		log.Fatal(err)
+	var reader *csv.Reader
+	if *flagInput != "" {
+		inputFile, err := os.Open(*flagInput)
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer inputFile.Close()
+		reader = csv.NewReader(inputFile)
+	} else {
+		// Get input from stdin
+		reader = csv.NewReader(os.Stdin)
 	}
-	defer inputFile.Close()
 
-	reader := csv.NewReader(inputFile)
 	records := make([][]string, 0)
 	fileCount := 1
 	for {
