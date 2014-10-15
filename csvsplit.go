@@ -19,11 +19,14 @@ var (
 
 func main() {
 	flag.Parse()
+
+	// Sanity check flags
 	if *flagRecords < 1 || *flagHeaders < 0 || *flagHeaders >= *flagRecords {
 		flag.Usage()
 		os.Exit(1)
 	}
 
+	// Get input from a given file or stdin
 	var reader *csv.Reader
 	if *flagInput != "" {
 		inputFile, err := os.Open(*flagInput)
@@ -33,7 +36,6 @@ func main() {
 		defer inputFile.Close()
 		reader = csv.NewReader(inputFile)
 	} else {
-		// Get input from stdin
 		reader = csv.NewReader(os.Stdin)
 	}
 
@@ -50,6 +52,7 @@ func main() {
 		records = append(records, record)
 		if len(records) == *flagRecords {
 			saveCSVFile(records, fileCount)
+			// Reset records to include just the header lines (if any)
 			records = records[:*flagHeaders]
 			fileCount += 1
 		}
@@ -61,14 +64,18 @@ func main() {
 
 func saveCSVFile(r [][]string, fileCount int) {
 	fileName := fmt.Sprintf("%v%03d%v", *flagOutput, fileCount, ".csv")
+
+	// Make sure we don't overwrite existing files
 	if _, err := os.Stat(fileName); err == nil {
 		log.Fatal("File exists: ", fileName)
 	}
+
 	f, err := os.Create(fileName)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer f.Close()
+
 	writer := csv.NewWriter(f)
 	writer.WriteAll(r)
 }
