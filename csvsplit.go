@@ -24,13 +24,13 @@ func main() {
 		os.Exit(1)
 	}
 
-	csvFile, err := os.Open(*flagInput)
+	inputFile, err := os.Open(*flagInput)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer csvFile.Close()
+	defer inputFile.Close()
 
-	reader := csv.NewReader(csvFile)
+	reader := csv.NewReader(inputFile)
 	records := make([][]string, 0)
 	fileCount := 1
 	for {
