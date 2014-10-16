@@ -62,6 +62,8 @@ func main() {
 	}
 }
 
+// saveCSVFile saves the given [][]string of csv data to a .csv file. Files are named
+// sequentially in the form of 001.csv, 002.csv, etc.
 func saveCSVFile(r [][]string, fileCount int) {
 	fileName := fmt.Sprintf("%v%03d%v", *flagOutput, fileCount, ".csv")
 
