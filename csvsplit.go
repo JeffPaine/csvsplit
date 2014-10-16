@@ -1,4 +1,5 @@
 // csvsplit: Split a .csv into multiple files.
+// https://github.com/JeffPaine/csvsplit
 package main
 
 import (
