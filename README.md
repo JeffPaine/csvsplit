@@ -24,6 +24,10 @@ $ csvplit -records 40 -input file.csv -headers 2
 
 # Accept csv data from stdin
 $ cat file.csv | csvsplit -records 20
+
+# You can use the -output flag to customize the resulting filenames.
+# The below will generate custom_filename-001.csv, custom_filename-002.csv, etc.
+$ cat file.csv | csvsplit -records 20 -output custom_filename-
 ```
 
 ## Flags
