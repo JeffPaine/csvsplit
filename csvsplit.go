@@ -27,55 +27,55 @@ func main() {
 	}
 
 	// Get input from a given file or stdin
-	var reader *csv.Reader
+	var r *csv.Reader
 	if *flagInput != "" {
-		inputFile, err := os.Open(*flagInput)
+		f, err := os.Open(*flagInput)
 		if err != nil {
 			log.Fatal(err)
 		}
-		defer inputFile.Close()
-		reader = csv.NewReader(inputFile)
+		defer f.Close()
+		r = csv.NewReader(f)
 	} else {
-		reader = csv.NewReader(os.Stdin)
+		r = csv.NewReader(os.Stdin)
 	}
 
-	records := make([][]string, 0)
-	fileCount := 1
+	recs := make([][]string, 0)
+	count := 1
 	for {
-		record, err := reader.Read()
+		record, err := r.Read()
 		if err == io.EOF {
 			break
 		} else if err != nil {
 			log.Fatal(err)
 		}
 
-		records = append(records, record)
-		if len(records) == *flagRecords {
-			saveCSVFile(records, fileCount)
+		recs = append(recs, record)
+		if len(recs) == *flagRecords {
+			saveCSVFile(recs, count)
 			// Reset records to include just the header lines (if any)
-			records = records[:*flagHeaders]
-			fileCount += 1
+			recs = recs[:*flagHeaders]
+			count += 1
 		}
 	}
-	if len(records) > 0 {
-		saveCSVFile(records, fileCount)
+	if len(recs) > 0 {
+		saveCSVFile(recs, count)
 	}
 }
 
-func saveCSVFile(r [][]string, fileCount int) {
-	fileName := fmt.Sprintf("%v%03d%v", *flagOutput, fileCount, ".csv")
+func saveCSVFile(r [][]string, c int) {
+	name := fmt.Sprintf("%v%03d%v", *flagOutput, c, ".csv")
 
 	// Make sure we don't overwrite existing files
-	if _, err := os.Stat(fileName); err == nil {
-		log.Fatal("File exists: ", fileName)
+	if _, err := os.Stat(name); err == nil {
+		log.Fatal("File exists: ", name)
 	}
 
-	f, err := os.Create(fileName)
+	f, err := os.Create(name)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer f.Close()
 
-	writer := csv.NewWriter(f)
-	writer.WriteAll(r)
+	w := csv.NewWriter(f)
+	w.WriteAll(r)
 }
