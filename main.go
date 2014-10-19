@@ -13,10 +13,10 @@ import (
 )
 
 var (
-	flagRecords = flag.Int("records", 0, "The number of records per file")
-	flagInput   = flag.String("input", "", "Filename of the input file to split (if blank, uses stdin)")
-	flagOutput  = flag.String("output", "", "filename / path of the file output (optional)")
-	flagHeaders = flag.Int("headers", 0, "Number of header lines in the input file (will be repeated in each output file")
+	flagRecords = flag.Int("records", 0, "The number of records per output file")
+	flagInput   = flag.String("input", "", "Filename of the input file to split (leave blank to use stdin)")
+	flagOutput  = flag.String("output", "", "Filename / path of the output file (leave blank for current directory)")
+	flagHeaders = flag.Int("headers", 0, "Number of header lines in the input file to preserve in each output file")
 )
 
 func main() {
