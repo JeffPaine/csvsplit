@@ -3,6 +3,7 @@
 Split a .csv into multiple files.
 
 ## Install
+You must have [go](https://golang.org/) installed, for the below to work.
 ```bash
 $ go get github.com/JeffPaine/csvsplit
 ```
@@ -23,10 +24,14 @@ $ csvplit -records 40 -input file.csv -headers 2
 
 # Accept csv data from stdin
 $ cat file.csv | csvsplit -records 20
+
+# You can use the -output flag to customize the resulting filenames.
+# The below will generate custom_filename-001.csv, custom_filename-002.csv, etc.
+$ cat file.csv | csvsplit -records 20 -output custom_filename-
 ```
 
-## Arguments
-* `-records`: Number of records per file
-* `-input`: Filename of the input file to split
-* `-output`: filename / path of the file output (optional)
-* `-headers`: Number of header lines in the input file
+## Flags
+`-records`: Number of records per file  
+`-input`: Input filename  
+`-output`: Output filename / path (optional)  
+`-headers`: Number of header lines in the input file (optional, default=0)
