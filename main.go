@@ -64,17 +64,17 @@ func main() {
 	}
 }
 
-// save saves the given *[][]string of csv data to a .csv file. Files are named
+// save() saves the given *[][]string of csv data to a .csv file. Files are named
 // sequentially in the form of 001.csv, 002.csv, etc.
 func save(recs *[][]string, c int) {
 	name := fmt.Sprintf("%v%03d%v", *flagOutput, c, ".csv")
 
 	// Make sure we don't overwrite existing files
 	if _, err := os.Stat(name); err == nil {
-		log.Fatal("File exists: ", name)
+		log.Fatal("file exists: ", name)
 	}
 
-	// If a path is specified, make sure that path exists
+	// If a directory is specified, make sure that directory exists
 	if filepath.Dir(*flagOutput) != "." {
 		_, err := os.Stat(filepath.Dir(*flagOutput))
 		if err != nil {
