@@ -9,6 +9,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"path/filepath"
 )
 
 var (
@@ -71,6 +72,14 @@ func save(recs *[][]string, c int) {
 	// Make sure we don't overwrite existing files
 	if _, err := os.Stat(name); err == nil {
 		log.Fatal("File exists: ", name)
+	}
+
+	// If a path is specified, make sure that path exists
+	if filepath.Dir(*flagOutput) != "." {
+		_, err := os.Stat(filepath.Dir(*flagOutput))
+		if err != nil {
+			log.Fatalf("no such directory '%v'", *flagOutput)
+		}
 	}
 
 	f, err := os.Create(name)
