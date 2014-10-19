@@ -51,18 +51,18 @@ func main() {
 
 		recs = append(recs, record)
 		if len(recs) == *flagRecords {
-			saveCSVFile(recs, count)
+			saveCSVFile(&recs, count)
 			// Reset records to include just the header lines (if any)
 			recs = recs[:*flagHeaders]
 			count += 1
 		}
 	}
 	if len(recs) > 0 {
-		saveCSVFile(recs, count)
+		saveCSVFile(&recs, count)
 	}
 }
 
-func saveCSVFile(r [][]string, c int) {
+func saveCSVFile(recs *[][]string, c int) {
 	name := fmt.Sprintf("%v%03d%v", *flagOutput, c, ".csv")
 
 	// Make sure we don't overwrite existing files
@@ -77,5 +77,5 @@ func saveCSVFile(r [][]string, c int) {
 	defer f.Close()
 
 	w := csv.NewWriter(f)
-	w.WriteAll(r)
+	w.WriteAll(*recs)
 }
