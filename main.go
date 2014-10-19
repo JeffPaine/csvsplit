@@ -1,4 +1,5 @@
 // csvsplit: Split a .csv into multiple files.
+// https://github.com/JeffPaine/csvsplit
 package main
 
 import (
@@ -62,6 +63,8 @@ func main() {
 	}
 }
 
+// save saves the given [][]string of csv data to a .csv file. Files are named
+// sequentially in the form of 001.csv, 002.csv, etc.
 func save(recs *[][]string, c int) {
 	name := fmt.Sprintf("%v%03d%v", *flagOutput, c, ".csv")
 
