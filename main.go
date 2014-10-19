@@ -40,7 +40,7 @@ func main() {
 		r = csv.NewReader(os.Stdin)
 	}
 
-	recs := make([][]string, 0)
+	var recs [][]string
 	count := 1
 	for {
 		record, err := r.Read()
@@ -55,7 +55,7 @@ func main() {
 			save(&recs, count)
 			// Reset records to include just the header lines (if any)
 			recs = recs[:*flagHeaders]
-			count += 1
+			count++
 		}
 	}
 	if len(recs) > 0 {
