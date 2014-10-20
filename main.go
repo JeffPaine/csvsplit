@@ -41,6 +41,8 @@ func main() {
 		r = csv.NewReader(os.Stdin)
 	}
 
+	// Read the input .csv file line by line. Save to a new file after reaching
+	// the amount of records prescribed by the -records flag.
 	var recs [][]string
 	count := 1
 	for {
