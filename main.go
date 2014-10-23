@@ -23,15 +23,15 @@ func main() {
 	flag.Parse()
 
 	// Sanity check flags
-	if *flagRecords < 1 || *flagHeaders < 0 || *flagHeaders >= *flagRecords {
+	if *flagRecords < 1 || *flagHeaders < 0 || *flagHeaders >= *flagRecords || len(flag.Args()) > 1 || len(flag.Args()) < 0 {
 		flag.Usage()
 		os.Exit(1)
 	}
 
 	// Get input from a given file or stdin
 	var r *csv.Reader
-	if *flagInput != "" {
-		f, err := os.Open(*flagInput)
+	if len(flag.Args()) == 1 {
+		f, err := os.Open(flag.Args()[0])
 		if err != nil {
 			log.Fatal(err)
 		}
