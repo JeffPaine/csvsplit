@@ -33,4 +33,4 @@ $ cat file.csv | csvsplit -records 20 -output custom_filename-
 ## Flags
 `-records`: Number of records per file  
 `-output`: Output filename / path (optional)  
-`-headers`: Number of header lines in the input file (optional, default=0)
+`-headers`: Number of header lines in the input file to add to each ouput file (optional, default=0)
