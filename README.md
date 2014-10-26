@@ -3,8 +3,10 @@
 Split a .csv into multiple files.
 
 ## Install
-You must have [go](https://golang.org/) installed, for the below to work.
+
 ```bash
+# The command below requires you to have Go installed
+# https://golang.org/doc/install
 $ go get github.com/JeffPaine/csvsplit
 ```
 
@@ -33,4 +35,4 @@ $ cat file.csv | csvsplit -records 20 -output custom_filename-
 ## Flags
 `-records`: Number of records per file  
 `-output`: Output filename / path (optional)  
-`-headers`: Number of header lines in the input file (optional, default=0)
+`-headers`: Number of header lines in the input file to add to each ouput file (optional, default=0)

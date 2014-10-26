@@ -14,7 +14,6 @@ import (
 
 var (
 	flagRecords = flag.Int("records", 0, "The number of records per output file")
-	flagInput   = flag.String("input", "", "Filename of the input file to split (leave blank to use stdin)")
 	flagOutput  = flag.String("output", "", "Filename / path of the output file (leave blank for current directory)")
 	flagHeaders = flag.Int("headers", 0, "Number of header lines in the input file to preserve in each output file")
 )
@@ -80,7 +79,7 @@ func save(recs *[][]string, c int) {
 	if filepath.Dir(*flagOutput) != "." {
 		_, err := os.Stat(filepath.Dir(*flagOutput))
 		if err != nil {
-			log.Fatalf("no such directory '%v'", *flagOutput)
+			log.Fatal("no such directory:", *flagOutput)
 		}
 	}
 
