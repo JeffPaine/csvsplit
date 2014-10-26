@@ -79,7 +79,7 @@ func save(recs *[][]string, c int) {
 	if filepath.Dir(*flagOutput) != "." {
 		_, err := os.Stat(filepath.Dir(*flagOutput))
 		if err != nil {
-			log.Fatalf("no such directory '%v'", *flagOutput)
+			log.Fatal("no such directory:", *flagOutput)
 		}
 	}
 
