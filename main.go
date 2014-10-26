@@ -22,7 +22,7 @@ func main() {
 	flag.Parse()
 
 	// Sanity check flags
-	if *flagRecords < 1 || *flagHeaders < 0 || *flagHeaders >= *flagRecords || len(flag.Args()) > 1 || len(flag.Args()) < 0 {
+	if *flagRecords < 1 || *flagHeaders < 0 || *flagHeaders >= *flagRecords || len(flag.Args()) != 1 {
 		flag.Usage()
 		os.Exit(1)
 	}
