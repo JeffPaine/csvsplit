@@ -67,9 +67,9 @@ func main() {
 }
 
 // save() saves the given *[][]string of csv data to a .csv file. Files are named
-// sequentially in the form of 001.csv, 002.csv, etc.
+// sequentially in the form of 1.csv, 2.csv, etc.
 func save(recs *[][]string, c int) {
-	name := fmt.Sprintf("%v%03d%v", *flagOutput, c, ".csv")
+	name := fmt.Sprintf("%v%d%v", *flagOutput, c, ".csv")
 
 	// Make sure we don't overwrite existing files
 	if _, err := os.Stat(name); err == nil {
