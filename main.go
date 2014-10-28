@@ -21,11 +21,8 @@ var (
 func main() {
 	flag.Parse()
 
-	// Sanity check flags
-	if *flagRecords < 1 || *flagHeaders < 0 || *flagHeaders >= *flagRecords || len(flag.Args()) != 1 {
-		flag.Usage()
-		os.Exit(1)
-	}
+	// Sanity check command line flags.
+	checkFlags()
 
 	// Get input from a given file or stdin
 	var r *csv.Reader
@@ -91,4 +88,12 @@ func save(recs *[][]string, c int) {
 
 	w := csv.NewWriter(f)
 	w.WriteAll(*recs)
+}
+
+// checkFlags checks our command line flags for basic sanity.
+func checkFlags() {
+	if *flagRecords < 1 || *flagHeaders < 0 || *flagHeaders >= *flagRecords {
+		flag.Usage()
+		os.Exit(1)
+	}
 }
