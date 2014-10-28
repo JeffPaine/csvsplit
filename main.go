@@ -92,8 +92,22 @@ func save(recs *[][]string, c int) {
 
 // checkFlags checks our command line flags for basic sanity.
 func checkFlags() {
-	if *flagRecords < 1 || *flagHeaders < 0 || *flagHeaders >= *flagRecords {
-		flag.Usage()
+	flag.Usage = func() {
+		fmt.Fprintln(os.Stderr, "usage: csvsplit [options] -records <number of records> <file>")
+		flag.PrintDefaults()
 		os.Exit(1)
+	}
+
+	if *flagRecords < 1 {
+		fmt.Fprintln(os.Stderr, "-records must be > 1")
+		flag.Usage()
+	}
+	if *flagHeaders < 0 {
+		fmt.Fprintln(os.Stderr, "-headers must be > 0")
+		flag.Usage()
+	}
+	if *flagHeaders >= *flagRecords {
+		fmt.Fprintln(os.Stderr, "-headers must be >= -records")
+		flag.Usage()
 	}
 }
