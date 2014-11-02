@@ -33,7 +33,6 @@ Flags
     -output: Output filename / path (optional)  
     -headers: Number of header lines in the input file to add to each ouput file (optional, default=0)
 */
-
 package main
 
 import (
