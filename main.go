@@ -22,7 +22,26 @@ func main() {
 	flag.Parse()
 
 	// Sanity check command line flags.
-	checkFlags()
+	flag.Usage = func() {
+		fmt.Fprintln(os.Stderr, "usage: csvsplit [options] -records <number of records> <file>")
+		flag.PrintDefaults()
+		os.Exit(1)
+	}
+
+	if *flagRecords < 1 {
+		fmt.Fprintln(os.Stderr, "-records must be > 1")
+		flag.Usage()
+	}
+
+	if *flagHeaders < 0 {
+		fmt.Fprintln(os.Stderr, "-headers must be > 0")
+		flag.Usage()
+	}
+
+	if *flagHeaders >= *flagRecords {
+		fmt.Fprintln(os.Stderr, "-headers must be >= -records")
+		flag.Usage()
+	}
 
 	// Get input from a given file or stdin
 	var r *csv.Reader
@@ -44,6 +63,7 @@ func main() {
 	for {
 		record, err := r.Read()
 		if err == io.EOF {
+			save(&recs, count)
 			break
 		} else if err != nil {
 			log.Fatal(err)
@@ -56,9 +76,6 @@ func main() {
 			recs = recs[:*flagHeaders]
 			count++
 		}
-	}
-	if len(recs) > 0 {
-		save(&recs, count)
 	}
 }
 
@@ -88,28 +105,4 @@ func save(recs *[][]string, c int) {
 
 	w := csv.NewWriter(f)
 	w.WriteAll(*recs)
-}
-
-// checkFlags checks our command line flags for basic sanity.
-func checkFlags() {
-	flag.Usage = func() {
-		fmt.Fprintln(os.Stderr, "usage: csvsplit [options] -records <number of records> <file>")
-		flag.PrintDefaults()
-		os.Exit(1)
-	}
-
-	if *flagRecords < 1 {
-		fmt.Fprintln(os.Stderr, "-records must be > 1")
-		flag.Usage()
-	}
-
-	if *flagHeaders < 0 {
-		fmt.Fprintln(os.Stderr, "-headers must be > 0")
-		flag.Usage()
-	}
-
-	if *flagHeaders >= *flagRecords {
-		fmt.Fprintln(os.Stderr, "-headers must be >= -records")
-		flag.Usage()
-	}
 }
