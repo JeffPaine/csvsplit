@@ -3,7 +3,7 @@
 Split a .csv into multiple files.
 
 ## Install
-The command below requires you to have Go [installed](https://golang.org/doc/install)
+The command below requires you to have Go [installed](https://golang.org/doc/install).
 ```bash
 $ go get github.com/JeffPaine/csvsplit
 ```
