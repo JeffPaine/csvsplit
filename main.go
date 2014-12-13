@@ -7,7 +7,7 @@ Install
 
 Requires Go to be installed first, https://golang.org/doc/install.
 
-    $ go get github.com/JeffPaine/csvsplit
+	$ go get github.com/JeffPaine/csvsplit
 
 Flags
 
