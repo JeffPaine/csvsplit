@@ -62,17 +62,14 @@ func main() {
 		flag.PrintDefaults()
 		os.Exit(1)
 	}
-
 	if *flagRecords < 1 {
 		fmt.Fprintln(os.Stderr, "-records must be > 1")
 		flag.Usage()
 	}
-
 	if *flagHeaders < 0 {
 		fmt.Fprintln(os.Stderr, "-headers must be > 0")
 		flag.Usage()
 	}
-
 	if *flagHeaders >= *flagRecords {
 		fmt.Fprintln(os.Stderr, "-headers must be >= -records")
 		flag.Usage()
