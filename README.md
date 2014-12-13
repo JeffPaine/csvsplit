@@ -1,6 +1,6 @@
 # csvsplit
 
-Split a .csv into multiple files.
+Command `csvsplit` splits a .csv into multiple, smaller files.
 
 ## Documentation
 
