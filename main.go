@@ -13,9 +13,14 @@ Flags
 
 Basic usage: csvsplit -records <number of records> <file>
 
-	-records Number of records per file
-	-output Output filename / path (optional)
-	-headers Number of header lines in the input file to add to each ouput file (optional, default=0)
+	-records
+Number of records per file
+
+	-output
+Output filename / path (optional)
+
+	-headers
+Number of header lines in the input file to add to each ouput file (optional, default=0)
 
 Examples
 
