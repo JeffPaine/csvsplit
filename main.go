@@ -53,9 +53,9 @@ import (
 )
 
 var (
-	flagRecords = flag.Int("records", 0, "The number of records per output file")
-	flagOutput  = flag.String("output", "", "Filename / path of the output file (leave blank for current directory)")
-	flagHeaders = flag.Int("headers", 0, "Number of header lines in the input file to preserve in each output file")
+	records = flag.Int("records", 0, "The number of records per output file")
+	output  = flag.String("output", "", "Filename / path of the output file (leave blank for current directory)")
+	headers = flag.Int("headers", 0, "Number of header lines in the input file to preserve in each output file")
 )
 
 func main() {
@@ -67,15 +67,15 @@ func main() {
 		flag.PrintDefaults()
 		os.Exit(1)
 	}
-	if *flagRecords < 1 {
+	if *records < 1 {
 		fmt.Fprintln(os.Stderr, "-records must be > 1")
 		flag.Usage()
 	}
-	if *flagHeaders < 0 {
+	if *headers < 0 {
 		fmt.Fprintln(os.Stderr, "-headers must be > 0")
 		flag.Usage()
 	}
-	if *flagHeaders >= *flagRecords {
+	if *headers >= *records {
 		fmt.Fprintln(os.Stderr, "-headers must be >= -records")
 		flag.Usage()
 	}
@@ -107,10 +107,10 @@ func main() {
 		}
 
 		recs = append(recs, record)
-		if len(recs) == *flagRecords {
+		if len(recs) == *records {
 			save(&recs, count)
 			// Reset records to include just the header lines (if any)
-			recs = recs[:*flagHeaders]
+			recs = recs[:*headers]
 			count++
 		}
 	}
@@ -119,7 +119,7 @@ func main() {
 // save() saves the given *[][]string of csv data to a .csv file. Files are named
 // sequentially in the form of 1.csv, 2.csv, etc.
 func save(recs *[][]string, c int) {
-	name := fmt.Sprintf("%v%d%v", *flagOutput, c, ".csv")
+	name := fmt.Sprintf("%v%d%v", *output, c, ".csv")
 
 	// Make sure we don't overwrite existing files
 	if _, err := os.Stat(name); err == nil {
@@ -127,10 +127,10 @@ func save(recs *[][]string, c int) {
 	}
 
 	// If a directory is specified, make sure that directory exists
-	if filepath.Dir(*flagOutput) != "." {
-		_, err := os.Stat(filepath.Dir(*flagOutput))
+	if filepath.Dir(*output) != "." {
+		_, err := os.Stat(filepath.Dir(*output))
 		if err != nil {
-			log.Fatal("no such directory:", *flagOutput)
+			log.Fatal("no such directory:", *output)
 		}
 	}
 
